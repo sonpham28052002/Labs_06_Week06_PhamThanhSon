@@ -15,4 +15,7 @@
         <img src="https://github.com/sonpham28052002/Labs_06_Week06_PhamThanhSon/assets/84237256/448bfbc9-e5db-4747-8b4e-e7887addeab7">
 <H3>- Người dùng sau khi đăng bài sẽ được đưa trở lại trang dánh sách bài post</H3>
         <img src="https://github.com/sonpham28052002/Labs_06_Week06_PhamThanhSon/assets/84237256/2d646d5b-3fbb-4ec5-b372-01b0c39d636b">
-
+<H3>- Người dùng nhấn Sign Out để đăng xuất</H3>
+        <img src="https://github.com/sonpham28052002/Labs_06_Week06_PhamThanhSon/assets/84237256/b45a9767-d9a9-4df2-b826-a523771b9227">
+<h3>- Hệ thống quay lại đăng nhập</h3>
+        <img src="https://github.com/sonpham28052002/Labs_06_Week06_PhamThanhSon/assets/84237256/8412eed0-1ee5-47dd-9dd0-7dfb8d06a4a0">
