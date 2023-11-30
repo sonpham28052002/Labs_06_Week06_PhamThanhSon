@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+<body style="display: flex; justify-content: center ; flex-direction: column;">
+<div style="padding: 20px; width: 50% ; background-color: aqua; margin-bottom: 20px;margin-left: 25% ; margin-right: 25% ; display: flex; justify-content: space-between; align-items: center">
+    <a href="/post/addPost">ADD POST NEW</a>
+    <p th:utext="${session.get('user').getLastName() +' '+session.get('user').getMiddleName()+' '+session.get('user').getFirstName()}"></p>
+</div>
+<div th:each="post:${posts}" style="padding: 20px; width: 50% ; background-color: aqua; margin-bottom: 20px;margin-left: 25% ; margin-right: 25%" >
+    <div class="title" style="padding: 10px; display: flex; justify-content: space-between;">
+        <h4 style="margin: 0;" th:utext="${post.getUser().getLastName() +' '+ post.getUser().getMiddleName() +' '+ post.getUser().getFirstName()}"></h4>
+        <p style="color: gray; margin: 0;"th:utext="${post.getCreateAt().toString()}"></p>
+        <a th:href="@{/post/list}">Reload</a>
+    </div>
+    <div class="post" style="border: 1px black solid; padding-inline: 20px; border-radius: 5px;">
+        <h5 style="margin: 10px 0px;" th:utext="${post.getContent()}"></h5>
+        <div style="display: flex;justify-content: flex-end;margin-bottom: 5px;">
+            <a href="https://www.facebook.com/loenz.2805" style="text-align: center;">Share</a>
+        </div>
+        <div th:if="${post.getParent_Id() != null}" style="border: 1px black solid; border-radius: 7px; padding: 10px;margin-bottom: 10px;">
+            <div class="title" style="padding: 10px; display: flex; justify-content: space-between;">
+                <h4 style="margin: 0;">Phạm Thanh Sơn</h4>
+                <p style="color: gray; margin: 0;">11/11/2024</p>
+            </div>
+            <p th:utext="${post.getParent_Id().getContent()}"></p>
+        </div>
+        <div class="comments" style="padding-inline: 10px; margin-bottom: 10px;padding-block: 10px;">
+            <h5 style="margin: 0;" >Bình Luận:</h5>
+            <form action="/comment/insert" method="post">
+                <input type="hidden" name="post_id" th:value="${post.getId()}">
+                <input type="text" name="comment" style="width:100%; height: 30px;"/>
+                <button type="submit">Bình Luận</button>
+            </form>
+            <div th:each="comment:${post.getPostComments()}" th:if="${comment.getParentID()==null}" class="comment" style="border: 1px black solid;margin-top: 10px; padding:10px; border-radius: 10px;">
+                <div class="title" style="padding: 10px;padding-bottom: 0px; display: flex; justify-content: space-between;">
+                    <h5 style="margin: 0;" th:utext="${comment.getUser().getLastName() +' '+comment.getUser().getMiddleName() +' '+comment.getUser().getFirstName()}"></h5>
+                    <p style="color: gray; margin: 0; font-size: 10px;">11/11/2024</p>
+                </div>
+                <p style="margin-left: 20px; margin-top: 0px" th:utext="${comment.getContent()}"></p>
+                <form action="/comment/insert" method="post">
+                    <input type="hidden" name="id" th:value="${comment.getId()}">
+                    <input type="hidden" name="post_id" th:value="${post.getId()}">
+                    <input type="text" name="comment" style="width:100%; height: 30px;"/>
+                    <button type="submit">Bình Luận</button>
+                </form>
+                <a style="text-decoration-line: underline">Show comment</a>
+                <div  th:each="commentCHLD:${comment.getPostCommentList()}" class="comment" style="border: 1px black solid;margin-top: 10px; margin-left:50px;padding:10px; border-radius: 10px;">
+                    <div class="title" style="padding: 10px;padding-bottom: 0px; display: flex; justify-content: space-between;">
+                        <h5 style="margin: 0;" th:utext="${commentCHLD.getUser().getLastName() +' '+commentCHLD.getUser().getMiddleName() +' '+commentCHLD.getUser().getFirstName()}"></h5>
+                        <p style="color: gray; margin: 0; font-size: 10px;">11/11/2024</p>
+                    </div>
+                    <p style="margin-left: 20px; margin-top: 0px" th:utext="${commentCHLD.getContent()}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
